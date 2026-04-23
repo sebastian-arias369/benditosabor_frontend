@@ -1,4 +1,4 @@
-name: benditosabor_frontend
+name: benditosabor
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -33,7 +33,15 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.8  # para usar ícones do estilo iOS
+  go_router: ^16.2.1  # para navegacion entre páginas
+  flutter_dotenv: ^6.0.0 # para cargar variables de entorno desde un archivo .env
+  http: ^1.5.0 # para hacer solicitudes HTTP a la API de ShearSync
+  shared_preferences: ^2.3.2 # para almacenar datos localmente (datos no sensibles del usuario)
+  flutter_secure_storage: ^9.2.2 # para guardar el token JWT de forma segura
+  dart_jsonwebtoken: ^2.8.4 # para decodificar claims del JWT localmente (id, rol, exp)
+  image_picker: ^0.8.7+4 # para permitir a los usuarios seleccionar imágenes de su galería o tomar fotos con la cámara
+  flutter_launcher_icons: ^0.14.4 # para generar íconos de aplicación personalizados a partir de una imagen
 
 dev_dependencies:
   flutter_test:
@@ -45,7 +53,11 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-
+  
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -58,9 +70,9 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/
+    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
