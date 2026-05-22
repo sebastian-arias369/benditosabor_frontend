@@ -42,6 +42,7 @@ dependencies:
   dart_jsonwebtoken: ^2.8.4 # para decodificar claims del JWT localmente (id, rol, exp)
   image_picker: ^0.8.7+4 # para permitir a los usuarios seleccionar imágenes de su galería o tomar fotos con la cámara
   flutter_launcher_icons: ^0.14.4 # para generar íconos de aplicación personalizados a partir de una imagen
+  intl: ^0.19.0 # para formatear monedas y fechas según el locale
 
 dev_dependencies:
   flutter_test:

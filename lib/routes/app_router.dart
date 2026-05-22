@@ -3,6 +3,7 @@ import 'package:benditosabor/auth/views/login_view.dart';
 import 'package:benditosabor/auth/views/register_view.dart';
 import 'package:benditosabor/auth/views/home_view.dart';
 import 'package:benditosabor/auth/services/auth_service.dart';
+import 'package:flutter/material.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/login',
@@ -11,12 +12,10 @@ final GoRouter appRouter = GoRouter(
     final isLoggingIn = state.matchedLocation == '/login';
     final isRegistering = state.matchedLocation == '/register';
 
-    // Si no está autenticado y no está en login/register, redirige a login
     if (!isLoggedIn && !isLoggingIn && !isRegistering) {
       return '/login';
     }
 
-    // Si está autenticado y está en login/register, redirige a home
     if (isLoggedIn && (isLoggingIn || isRegistering)) {
       return '/home';
     }
@@ -39,6 +38,30 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/home',
       builder: (context, state) => const HomeView(),
+    ),
+    GoRoute(
+      path: '/category/:categoryId',
+      builder: (context, state) {
+        final categoryId = state.pathParameters['categoryId'];
+        return Scaffold(
+          appBar: AppBar(title: const Text('Categoría')),
+          body: Center(
+            child: Text('Categoría $categoryId (por implementar)'),
+          ),
+        );
+      },
+    ),
+    GoRoute(
+      path: '/item/:itemId',
+      builder: (context, state) {
+        final itemId = state.pathParameters['itemId'];
+        return Scaffold(
+          appBar: AppBar(title: const Text('Producto')),
+          body: Center(
+            child: Text('Producto $itemId (por implementar)'),
+          ),
+        );
+      },
     ),
   ],
 );

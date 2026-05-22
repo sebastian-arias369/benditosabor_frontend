@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/widgets/custom_drawer.dart';
+import '/widgets/custom_bottom_navbar.dart';
 
 
 class BaseView extends StatelessWidget {
@@ -11,9 +12,11 @@ class BaseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      drawer: const CustomDrawer(),
-      body: body,
+         appBar: AppBar(title: Text(title)),
+         drawer: const CustomDrawer(), // Drawer persistente para todas las vistas
+         body: body,
+         bottomNavigationBar: CustomBottomNavbar() 
+      //floatingActionButton: floatingActionButton,
     );
   }
 }
