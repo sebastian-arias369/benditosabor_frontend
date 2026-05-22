@@ -49,11 +49,14 @@ class ItemMenu {
   });
 
   factory ItemMenu.fromJson(Map<String, dynamic> json) {
+    final precio = json['precio'];
+    final precioDouble = precio is String ? double.parse(precio) : (precio as num).toDouble();
+
     return ItemMenu(
       id: json['id_producto'] ?? json['id'] ?? 0,
       nomItem: json['nombre'] ?? '',
       descItem: json['descripcion'] ?? '',
-      precItem: (json['precio'] ?? 0).toDouble(),
+      precItem: precioDouble,
       imgItemMenu: json['imagen_url'] ?? '',
       estItem: (json['stock'] ?? 0) > 0,
       stock: json['stock'] ?? 0,
