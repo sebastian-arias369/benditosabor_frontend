@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../auth/services/auth_service.dart';
 
-/// CustomDrawer — Estilo Barbershop · Claro con Volumen
-/// Consistente con LoginViewTheme: warm gray, cards elevadas, sombras suaves
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
-  // ── Colores ────────────────────────────────────────────────────────────────────
   static const Color primaryBackground = Color(0xFFECE9E3);
   static const Color surfaceColor = Color(0xFFF8F6F1);
   static const Color primaryColor = Color(0xFF1A1A1A);
@@ -14,8 +12,8 @@ class CustomDrawer extends StatelessWidget {
   static const Color subtleColor = Color(0xFF999999);
   static const Color borderColor = Color(0xFFD4D0C8);
   static const Color buttonTextLight = Color(0xFFF0EDE7);
+  static const Color accentColor = Color(0xFF2E7D32);
 
-  // ── Dimensiones ───────────────────────────────────────────────────────────────
   static const double headerTopPadding = 60.0;
   static const double headerBottomPadding = 32.0;
   static const double headerHorizontalPadding = 24.0;
@@ -25,7 +23,6 @@ class CustomDrawer extends StatelessWidget {
   static const double logoContainerSize = 48.0;
   static const double logoIconSize = 28.0;
 
-  // ── Sombras ────────────────────────────────────────────────────────────────────
   static List<BoxShadow> get headerShadow => [
         const BoxShadow(
           color: Color(0x1A000000),
@@ -65,7 +62,6 @@ class CustomDrawer extends StatelessWidget {
         ),
       ];
 
-
   @override
   Widget build(BuildContext context) {
     final currentRoute = GoRouterState.of(context).uri.path;
@@ -74,7 +70,6 @@ class CustomDrawer extends StatelessWidget {
       backgroundColor: primaryBackground,
       child: Column(
         children: [
-          // Header personalizado con estilo elegante
           Container(
             width: double.infinity,
             padding: const EdgeInsets.only(
@@ -84,13 +79,12 @@ class CustomDrawer extends StatelessWidget {
               right: headerHorizontalPadding,
             ),
             decoration: BoxDecoration(
-              color: primaryColor,
+              color: accentColor,
               boxShadow: headerShadow,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Logo/Icono
                 Container(
                   width: logoContainerSize,
                   height: logoContainerSize,
@@ -101,15 +95,14 @@ class CustomDrawer extends StatelessWidget {
                     boxShadow: logoShadow,
                   ),
                   child: const Icon(
-                    Icons.content_cut_rounded,
+                    Icons.restaurant,
                     size: logoIconSize,
-                    color: primaryColor,
+                    color: accentColor,
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Título
                 const Text(
-                  'ShearSync',
+                  'Bendito Sabor',
                   style: TextStyle(
                     fontFamily: 'Georgia',
                     fontSize: 24,
@@ -120,9 +113,8 @@ class CustomDrawer extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                // Subtítulo
                 Text(
-                  'MENÚ PRINCIPAL',
+                  'MENÚ DIGITAL',
                   style: TextStyle(
                     fontFamily: null,
                     fontSize: 9,
@@ -135,28 +127,27 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
 
-          // Items del menú
           Expanded(
             child: ListView(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
               children: [
                 _buildMenuItem(
                   context: context,
-                  icon: Icons.home_rounded,
-                  title: 'Inicio',
-                  route: '/publicaciones',
-                  isActive: currentRoute == '/publicaciones',
+                  icon: Icons.restaurant_menu,
+                  title: 'Menú',
+                  route: '/home',
+                  isActive: currentRoute == '/home' || currentRoute == '/category',
                 ),
                 _buildMenuItem(
                   context: context,
-                  icon: Icons.photo_library_rounded,
-                  title: 'Publicaciones',
-                  route: '/publicaciones',
-                  isActive: currentRoute == '/publicaciones',
+                  icon: Icons.receipt_long,
+                  title: 'Mis Pedidos',
+                  route: '/orders',
+                  isActive: currentRoute == '/orders',
                 ),
                 _buildMenuItem(
                   context: context,
-                  icon: Icons.event_seat_rounded,
+                  icon: Icons.event_seat,
                   title: 'Reservas',
                   route: '/reservas',
                   isActive: currentRoute == '/reservas',
@@ -169,20 +160,25 @@ class CustomDrawer extends StatelessWidget {
                 const SizedBox(height: 8),
                 _buildMenuItem(
                   context: context,
-                  icon: Icons.person_rounded,
-                  title: 'Perfil',
-                  route: '/perfil',
-                  isActive: currentRoute == '/perfil',
-                  isPush: false,
+                  icon: Icons.person,
+                  title: 'Mi Perfil',
+                  route: '/profile',
+                  isActive: currentRoute == '/profile',
                 ),
                 _buildMenuItem(
                   context: context,
-                  icon: Icons.settings_rounded,
-                  title: 'Configuración',
-                  route: '/settings',
-                  isActive: currentRoute == '/settings',
-                  isPush: true,
+                  icon: Icons.info,
+                  title: 'Acerca de',
+                  route: '/about',
+                  isActive: currentRoute == '/about',
                 ),
+                const SizedBox(height: 8),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Divider(color: borderColor, thickness: 1),
+                ),
+                const SizedBox(height: 8),
+                _buildLogoutButton(context),
               ],
             ),
           ),
@@ -224,7 +220,7 @@ class CustomDrawer extends StatelessWidget {
               borderRadius: BorderRadius.circular(menuItemRadius),
               color: isActive ? surfaceColor : Colors.transparent,
               border: isActive
-                  ? Border.all(color: borderColor, width: 1.5)
+                  ? Border.all(color: accentColor, width: 1.5)
                   : null,
               boxShadow: isActive ? activeItemShadow : null,
             ),
@@ -233,7 +229,7 @@ class CustomDrawer extends StatelessWidget {
                 Icon(
                   icon,
                   size: iconSize,
-                  color: isActive ? primaryColor : mutedColor,
+                  color: isActive ? accentColor : mutedColor,
                 ),
                 const SizedBox(width: 16),
                 Text(
@@ -242,7 +238,78 @@ class CustomDrawer extends StatelessWidget {
                     fontFamily: null,
                     fontSize: 14,
                     fontWeight: isActive ? FontWeight.w600 : FontWeight.w400,
-                    color: isActive ? primaryColor : mutedColor,
+                    color: isActive ? accentColor : mutedColor,
+                    letterSpacing: 0.1,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLogoutButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(menuItemRadius),
+        child: InkWell(
+          onTap: () async {
+            final shouldLogout = await showDialog<bool>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Cerrar Sesión'),
+                content: const Text('¿Estás seguro que deseas cerrar sesión?'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, false),
+                    child: const Text('Cancelar'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, true),
+                    style: TextButton.styleFrom(
+                      foregroundColor: accentColor,
+                    ),
+                    child: const Text('Cerrar Sesión'),
+                  ),
+                ],
+              ),
+            );
+
+            if (shouldLogout == true && context.mounted) {
+              await AuthService.logout();
+              if (context.mounted) {
+                context.go('/login');
+              }
+            }
+          },
+          borderRadius: BorderRadius.circular(menuItemRadius),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: headerHorizontalPadding,
+              vertical: menuItemPadding,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(menuItemRadius),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.logout,
+                  size: iconSize,
+                  color: accentColor,
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  'Cerrar Sesión',
+                  style: TextStyle(
+                    fontFamily: null,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: accentColor,
                     letterSpacing: 0.1,
                   ),
                 ),
@@ -254,3 +321,4 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 }
+

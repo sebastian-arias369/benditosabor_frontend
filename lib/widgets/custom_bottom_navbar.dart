@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class CustomBottomNavbar extends StatelessWidget {
   const CustomBottomNavbar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Obtener la ruta actual para determinar qué opción está activa
     final currentRoute = GoRouterState.of(context).uri.path;
-    
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -25,7 +23,6 @@ class CustomBottomNavbar extends StatelessWidget {
           ),
         ],
       ),
-      
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -33,7 +30,7 @@ class CustomBottomNavbar extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
-                context.go('/menu');
+                context.go('/home');
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -42,13 +39,17 @@ class CustomBottomNavbar extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.restaurant_menu,
-                      color: currentRoute == '/menu' ? Colors.green : Colors.grey,
+                      color: currentRoute == '/home' || currentRoute.startsWith('/category')
+                          ? const Color(0xFF2E7D32)
+                          : Colors.grey,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Menú',
                       style: TextStyle(
-                        color: currentRoute == '/menu' ? Colors.green : Colors.grey,
+                        color: currentRoute == '/home' || currentRoute.startsWith('/category')
+                            ? const Color(0xFF2E7D32)
+                            : Colors.grey,
                       ),
                     ),
                   ],
@@ -70,13 +71,17 @@ class CustomBottomNavbar extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.event_seat,
-                      color: currentRoute == '/bookings' ? Colors.green : Colors.grey,
+                      color: currentRoute == '/bookings'
+                          ? const Color(0xFF2E7D32)
+                          : Colors.grey,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Reservas',
                       style: TextStyle(
-                        color: currentRoute == '/bookings' ? Colors.green : Colors.grey,
+                        color: currentRoute == '/bookings'
+                            ? const Color(0xFF2E7D32)
+                            : Colors.grey,
                       ),
                     ),
                   ],
@@ -98,13 +103,17 @@ class CustomBottomNavbar extends StatelessWidget {
                   children: [
                     Icon(
                       Icons.account_circle,
-                      color: currentRoute == '/profile' ? Colors.green : Colors.grey,
+                      color: currentRoute == '/profile'
+                          ? const Color(0xFF2E7D32)
+                          : Colors.grey,
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Perfil',
                       style: TextStyle(
-                        color: currentRoute == '/profile' ? Colors.green : Colors.grey,
+                        color: currentRoute == '/profile'
+                            ? const Color(0xFF2E7D32)
+                            : Colors.grey,
                       ),
                     ),
                   ],
@@ -117,3 +126,4 @@ class CustomBottomNavbar extends StatelessWidget {
     );
   }
 }
+

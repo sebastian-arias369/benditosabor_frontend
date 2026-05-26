@@ -145,13 +145,25 @@ class _CategoryListViewState extends State<CategoryListView> {
             children: [
               Positioned.fill(
                 child: Container(
+                  height: 30,
+                  width: double.infinity,
+
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
+                    borderRadius: BorderRadius.circular(20),
+
+                    image: const DecorationImage(
+                      image: AssetImage(
+                        'assets/images/encabezado.jpg',
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+
+                    gradient: const LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        CategoryListViewTheme.accentColor,
-                        CategoryListViewTheme.highlightColor,
+                        Color.fromARGB(180, 217, 80, 17),
+                        Color.fromARGB(180, 255, 140, 0),
                       ],
                     ),
                   ),
